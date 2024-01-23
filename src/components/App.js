@@ -1,49 +1,76 @@
-
 import React, { useState } from "react";
 import './../styles/App.css';
-const allProducts = ["Samsung Galaxy Fold 4", "Iphone 14 pro", "Pixel 5","MI notet 6","FireStick","OnePlus Nord"]
+import Cart from "./Cart";
 
 const App = () => {
-  const [cart, setCart] = useState([])
-  function handleAddToCart(item) {
-    setCart([...cart, item])
-  }
-  function handleDelete(i) {
-    setCart(cart.filter((item, ind) => ind != i))
-  }
+  const [items, setItems] = useState([]);
+
+  const addItem = (item) => {
+    setItems([...items, item]);
+  };
+
+  const removeItem = (index) => {
+    setItems(items.filter((item, i) => i !== index));
+  };
+
   return (
     <div>
-      {/* Do not remove the main div */}
-      <div className="container">
-        <h3>List of Products</h3>
-        {
-          allProducts.map(item => (
-            <div className="item">
-              <p>{item}</p>
-              <button onClick={() => handleAddToCart(item)} >Add Item</button>
-            </div>
-          ))
-        }
+      <h2>List of Products</h2>
+      <div class="container">
+        <div class="item">
+          <div>Samsung Galaxy Fold 4</div>
+          <button
+            onClick={() =>
+              addItem({ id: Date.now(), name: "Samsung Galaxy Fold 4" })
+            }
+          >
+            Add Item
+          </button>
+        </div>
+        <div class="item">
+          <div>Iphone 14 Pro</div>
+          <button
+            onClick={() => addItem({ id: Date.now(), name: "Iphone 14 Pro" })}
+          >
+            Add Item
+          </button>
+        </div>
+        <div class="item">
+          <div>Pixel 5</div>
+          <button onClick={() => addItem({ id: Date.now(), name: "Pixel 5" })}>
+            Add Item
+          </button>
+        </div>
+        <div class="item">
+          <div>Mi note 6</div>
+          <button
+            onClick={() => addItem({ id: Date.now(), name: "Mi note 6" })}
+          >
+            Add Item
+          </button>
+        </div>
+        <div class="item">
+          <div>FireStick</div>
+          <button
+            onClick={() => addItem({ id: Date.now(), name: "FireStick" })}
+          >
+            Add Item
+          </button>
+        </div>
+        <div class="item">
+          <div>OnePlus Nord</div>
+          <button
+            onClick={() => addItem({ id: Date.now(), name: "OnePlus Nord" })}
+          >
+            Add Item
+          </button>
+        </div>
       </div>
-      <div className="cart">
-        <h3>Cart</h3>
-        {
-          cart.length === 0 ? (
-            <p>There are no items in the cart</p>
-          )
-            :
-            (
-              cart.map((item, i) => (
-                <div>
-                  <p>{item}</p>
-                  <button onClick={() => handleDelete(i)} >Remove</button>
-                </div>
-              ))
-            )
-        }
-      </div>
+      <hr />
+      <h2>Cart</h2>
+      <Cart items={items} onRemove={removeItem} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
